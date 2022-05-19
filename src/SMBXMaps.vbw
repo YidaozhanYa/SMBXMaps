@@ -1,11 +1,12 @@
 frmUpload = 120, 78, 1329, 705, , 40, 26, 1249, 675, C
 URLUtility = 0, 0, 0, 0, C
-modCommonControlsLoader = 0, 0, 0, 0, C
+modCommonControlsLoader = 320, 208, 1530, 835, C
 Module = 0, 0, 1209, 627, 
-Lncld = 80, 52, 1289, 679, Z
+Lncld = 80, 52, 1289, 679, 
 JSON = 0, 0, 0, 0, C
 cStringBuilder = 0, 0, 0, 0, C
 Base64 = 360, 234, 1718, 744, 
 frmDummy = 440, 286, 1649, 913, C, 400, 260, 1609, 887, C
 modProprietary = 40, 26, 1249, 653, 
 modAdmin = 120, 78, 1409, 588, 
+frmBrowse = 400, 260, 1610, 887, Z, 280, 182, 1490, 809, C

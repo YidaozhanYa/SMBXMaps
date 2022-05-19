@@ -22,9 +22,9 @@ Private Sub InitCommonControls()
     InitCommonControlsEx iccex
 End Sub
 
-Private Sub Main()
+Private Sub Main() '´Ó´ËÆô¶¯
     InitCommonControls
-    frmUpload.Show
+    frmBrowse.Show
 End Sub
 
 

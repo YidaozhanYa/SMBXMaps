@@ -5,7 +5,8 @@ Public Declare Sub InitCommonControls Lib "comctl32.dll" ()
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 'end api header
 
-Public Const MapServer As String = "http://azure2.yidaozhan.ga:5244"
+Public Const MapUploadServer As String = "http://azure2.yidaozhan.ga:5244"
+Public Const MapDownloadServer As String = "https://file.yidaozhan.ga"
 Public Const DummyPathURL As String = "Â·¾¶ ..."
 
 

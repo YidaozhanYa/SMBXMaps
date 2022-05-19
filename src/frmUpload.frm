@@ -1,11 +1,12 @@
 VERSION 5.00
 Begin VB.Form frmUpload 
    BackColor       =   &H80000005&
+   BorderStyle     =   1  'Fixed Single
    Caption         =   "SMBX 地图仓库 - 申请投稿"
    ClientHeight    =   3600
-   ClientLeft      =   60
-   ClientTop       =   405
-   ClientWidth     =   7335
+   ClientLeft      =   45
+   ClientTop       =   390
+   ClientWidth     =   4485
    BeginProperty Font 
       Name            =   "微软雅黑 Light"
       Size            =   10.5
@@ -17,44 +18,46 @@ Begin VB.Form frmUpload
    EndProperty
    Icon            =   "frmUpload.frx":0000
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   3600
-   ScaleWidth      =   7335
+   ScaleWidth      =   4485
    StartUpPosition =   3  '窗口缺省
+   Begin VB.CommandButton cmdPost 
+      Caption         =   "投稿!"
+      Height          =   420
+      Left            =   3120
+      TabIndex        =   15
+      Top             =   3000
+      Width           =   1215
+   End
    Begin VB.TextBox txtPublishUrl 
       Height          =   375
       Left            =   1200
-      TabIndex        =   15
+      TabIndex        =   13
       Text            =   "可选填"
       Top             =   2520
       Width           =   3135
-   End
-   Begin VB.CommandButton cmdPost 
-      Caption         =   "投稿！"
-      Height          =   495
-      Left            =   5760
-      TabIndex        =   14
-      Top             =   3000
-      Width           =   1455
    End
    Begin VB.CommandButton cmdDesc 
       Caption         =   "填写"
       Height          =   420
       Left            =   1200
-      TabIndex        =   13
+      TabIndex        =   12
       Top             =   3000
       Width           =   1215
    End
    Begin VB.TextBox txtMaker 
       Height          =   375
       Left            =   1200
-      TabIndex        =   10
+      TabIndex        =   9
       Top             =   2040
       Width           =   3135
    End
    Begin VB.TextBox txtURL 
       Height          =   420
       Left            =   1200
-      TabIndex        =   9
+      TabIndex        =   8
       Text            =   "路径 / URL ..."
       Top             =   1560
       Width           =   1815
@@ -63,14 +66,14 @@ Begin VB.Form frmUpload
       Caption         =   "浏览"
       Height          =   420
       Left            =   3120
-      TabIndex        =   8
+      TabIndex        =   7
       Top             =   1560
       Width           =   1215
    End
    Begin VB.TextBox txtGameVersion 
       Height          =   420
       Left            =   3120
-      TabIndex        =   6
+      TabIndex        =   5
       Text            =   "1.4.0"
       Top             =   1080
       Width           =   1215
@@ -78,7 +81,7 @@ Begin VB.Form frmUpload
    Begin VB.ComboBox cbGameVersion 
       Height          =   420
       Left            =   1200
-      TabIndex        =   5
+      TabIndex        =   4
       Text            =   "Combo1"
       Top             =   1080
       Width           =   1815
@@ -95,7 +98,7 @@ Begin VB.Form frmUpload
       Caption         =   "发布网址："
       Height          =   375
       Left            =   120
-      TabIndex        =   16
+      TabIndex        =   14
       Top             =   2535
       Width           =   1455
    End
@@ -104,7 +107,7 @@ Begin VB.Form frmUpload
       Caption         =   "地图简介："
       Height          =   375
       Left            =   120
-      TabIndex        =   12
+      TabIndex        =   11
       Top             =   3000
       Width           =   1215
    End
@@ -113,7 +116,7 @@ Begin VB.Form frmUpload
       Caption         =   "地图作者："
       Height          =   375
       Left            =   120
-      TabIndex        =   11
+      TabIndex        =   10
       Top             =   2055
       Width           =   1455
    End
@@ -122,7 +125,7 @@ Begin VB.Form frmUpload
       Caption         =   "地图文件："
       Height          =   375
       Left            =   120
-      TabIndex        =   7
+      TabIndex        =   6
       Top             =   1605
       Width           =   1455
    End
@@ -131,18 +134,9 @@ Begin VB.Form frmUpload
       Caption         =   "游戏版本："
       Height          =   375
       Left            =   120
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   1125
       Width           =   1575
-   End
-   Begin VB.Label Label3 
-      BackStyle       =   0  'Transparent
-      Caption         =   "注：未来我有考虑制作地图仓库客户端的情况，所以建议将地图简介 / 发布网址等信息填写完全。"
-      Height          =   1335
-      Left            =   4680
-      TabIndex        =   3
-      Top             =   120
-      Width           =   2535
    End
    Begin VB.Label Label2 
       BackStyle       =   0  'Transparent
@@ -240,7 +234,7 @@ Private Sub cmdPost_Click()
         FilePath = Environ("Temp") & "\[" & Postfields.Item("version") & "] " & txtMapName.Text & "." & GetExt(txtURL.Text)
         FileCopy txtURL.Text, FilePath
     frmDummy.ShowDummy "正在投稿中 ...", "正在上传文件"
-    ShellAndWait "cmd /c """ & App.Path & "\curl.exe " & """" & MapServer & "/api/public/upload"" -X POST -H ""authorization:" & MapServerToken & """ -F ""path=/SMBX/" & GetRepoFolder(txtMapName.Text) & """ -F ""files=@" & FilePath & """ > """ & App.Path & "\Temp.txt" & """"
+    ShellAndWait "cmd /c """ & App.Path & "\curl.exe " & """" & MapUploadServer & "/api/public/upload"" -X POST -H ""authorization:" & MapServerToken & """ -F ""path=/SMBX/" & GetRepoFolder(txtMapName.Text) & """ -F ""files=@" & FilePath & """ > """ & App.Path & "\Temp.txt" & """"
     Sleep 20
     If JSON.parse(ReadTextFile(App.Path & "\Temp.txt"))("code") <> 200 Then
         MsgBox "发生错误 " & ReadTextFile(App.Path & "\Temp.txt")
